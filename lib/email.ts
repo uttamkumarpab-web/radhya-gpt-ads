@@ -75,8 +75,15 @@ function buildUserEmailHtml(lead: LeadRecord) {
     </div>`;
 }
 
-const EMAIL_FROM = "MBA Online Info <noreply@mbaonlineinfo.com>";
-const ADMIN_NOTIFICATION_EMAIL = "noreply@mbaonlineinfo.com";
+const DEFAULT_EMAIL_FROM = "MBA Online Info <noreply@mbaonlineinfo.com>";
+
+function getFromAddress(): string {
+  const configured = process.env.EMAIL_FROM
+    ?.trim()
+    .replace(/^"|"$/g, "")
+    .trim();
+  return configured || DEFAULT_EMAIL_FROM;
+}
 
 export async function sendLeadNotification(lead: LeadRecord) {
   if (!process.env.LEAD_NOTIFICATION_EMAIL) {
@@ -85,7 +92,7 @@ export async function sendLeadNotification(lead: LeadRecord) {
   }
 
   const { data, error } = await getClient().emails.send({
-    from: EMAIL_FROM,
+    from: getFromAddress(),
     to: [process.env.LEAD_NOTIFICATION_EMAIL],
     subject: `New Online MBA Lead - ${lead.first_name} ${lead.last_name} (${lead.mobile})`,
     html: buildAdminEmailHtml(lead),
@@ -97,7 +104,7 @@ export async function sendLeadNotification(lead: LeadRecord) {
 
 export async function sendUserConfirmationEmail(lead: LeadRecord) {
   const { data, error } = await getClient().emails.send({
-    from: EMAIL_FROM,
+    from: getFromAddress(),
     to: [lead.email as string],
     subject: "Thank You for Your Interest in Online MBA",
     html: buildUserEmailHtml(lead),

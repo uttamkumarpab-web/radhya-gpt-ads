@@ -130,21 +130,51 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (isEmailConfigured()) {
-    try {
-      await sendLeadNotification(lead);
-    } catch (err) {
-      console.error("Failed to send lead notification email:", err);
-    }
+  const emailStatus: Array<{
+    kind: string;
+    ok: boolean;
+    id?: string;
+    error?: unknown;
+  }> = [];
 
-    try {
-      await sendUserConfirmationEmail(lead);
-    } catch (err) {
-      console.error("Failed to send user confirmation email:", err);
+  if (isEmailConfigured()) {
+    const [adminResult, userResult] = await Promise.allSettled([
+      sendLeadNotification(lead),
+      sendUserConfirmationEmail(lead),
+    ]);
+
+    const summarize = (
+      kind: string,
+      result: PromiseSettledResult<Awaited<ReturnType<typeof sendLeadNotification>>>
+    ) =>
+      result.status === "fulfilled"
+        ? { kind, ok: true, id: result.value?.id }
+        : {
+            kind,
+            ok: false,
+            error:
+              result.reason instanceof Error
+                ? `${result.reason.name}: ${result.reason.message}`
+                : String(result.reason),
+          };
+
+    emailStatus.push(
+      summarize("admin", adminResult),
+      summarize("user", userResult)
+    );
+
+    for (const entry of emailStatus) {
+      if (!entry.ok) {
+        console.error(`Failed to send ${entry.kind} email:`, entry.error);
+      }
     }
   } else {
     console.warn("RESEND_API_KEY not set - emails skipped.");
+    emailStatus.push(
+      { kind: "admin", ok: false, error: "emails skipped (no RESEND_API_KEY)" },
+      { kind: "user", ok: false, error: "emails skipped (no RESEND_API_KEY)" }
+    );
   }
 
-  return Response.json({ status: true, id: leadId });
+  return Response.json({ status: true, id: leadId, emailStatus });
 }
