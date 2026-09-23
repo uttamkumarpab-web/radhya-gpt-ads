@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Specializations */
+.offerd-main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.offerd-box {
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
+  position: relative;
+  transition: all 0.35s ease-in-out;
+  transform: scale(1);
+  align-content: center;
+  min-height: 94px;
+  padding: 12px;
+  border: 3px solid #4B4965;
+}
+
+.offerd-box p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #000;
+  padding: 0;
+}
+
+.offerd-box::before {
+  content: "";
+  position: absolute;
+  width: 58px;
+  height: 58px;
+  right: 0;
+  top: 0;
+  border-radius: 0 1px 0 54px;
+  transition: all 0.35s ease-in-out;
+}
+
+/* Hover Effects */
+.offerd-box:hover {
+  background: linear-gradient(144.8deg, #3c087e 2.07%, rgba(132, 104, 207, 0.274) 145.02%);
+  transform: scale(1.03);
+}
+
+.offerd-box:hover::before {
+  background: #eea727;
+}
+
+.offerd-box:hover p {
+  color: #fff;
+}
+
+/* Tablet media queries */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .offerd-main {
+    gap: 18px;
+    padding: 0 15px;
+  }
+
+  .offerd-box {
+    min-height: 100px;
+    padding: 10px;
+  }
+
+  .offerd-box p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+/* Mobile media queries */
+@media (min-width: 320px) and (max-width: 767px) {
+  .offerd-main {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .offerd-box {
+    min-height: 84px;
+    padding: 10px 8px;
+  }
+
+  .offerd-box p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
+
+@keyframes softBlink {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(254, 213, 111, 1.0);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(214, 142, 14, 1.0);
+  }
+}
+
+.animate-soft-blink {
+  animation: softBlink 1.4s ease-in-out infinite;
+}
