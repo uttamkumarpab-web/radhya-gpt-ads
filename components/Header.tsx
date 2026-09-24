@@ -18,7 +18,7 @@ export default function Header() {
         <OpenFormButton
           id="cta-header-apply-now"
           label="Apply Now"
-          className="rounded bg-[#3c087e] px-4 py-2 text-sm font-semibold text-white shadow transition-colors duration-300 hover:bg-[#eea727]"
+          className="rounded hover:bg-[#3c087e] px-4 py-2 text-sm font-semibold text-white shadow transition-colors duration-300 bg-[#eea727]"
         >
           Apply Now
         </OpenFormButton>

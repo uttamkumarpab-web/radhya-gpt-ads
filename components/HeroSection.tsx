@@ -110,14 +110,14 @@ export default function HeroSection() {
             <OpenFormButton
               id="cta-hero-apply-now"
               label="Apply Now"
-              className="inline-flex items-center justify-center rounded-lg bg-[#3c087e] border-white/70 px-7 py-3 text-sm md:text-base font-semibold text-white shadow-lg transition-colors duration-300 hover:bg-[#eea727]"
+              className="inline-flex items-center justify-center rounded-lg hover:bg-[#3c087e] border-white/70 px-7 py-3 text-sm md:text-base font-semibold text-white shadow-lg transition-colors duration-300 bg-[#eea727]"
             >
               Apply Now
             </OpenFormButton>
             <OpenFormButton
               id="cta-hero-download-brochure"
               label="Download Brochure"
-              className="inline-flex items-center justify-center rounded-lg border-white/70 bg-[#3c087e] px-7 py-3 text-sm md:text-base font-semibold text-white backdrop-blur-sm transition-colors duration-300 hover:bg-[#eea727]"
+              className="inline-flex items-center justify-center rounded-lg border-white/70 hover:bg-[#3c087e] px-7 py-3 text-sm md:text-base font-semibold text-white backdrop-blur-sm transition-colors duration-300 bg-[#eea727]"
             >
               Download Brochure
             </OpenFormButton>
