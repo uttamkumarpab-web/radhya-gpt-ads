@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
+import AutoPopupModal from "@/components/AutoPopupModal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-white">
         {children}
+        <AutoPopupModal />
         {openAiPixelId ? (
           <Script id="openai-ads-pixel" strategy="beforeInteractive">
             {`

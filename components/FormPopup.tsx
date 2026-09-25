@@ -1,22 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import LeadForm from "./LeadForm";
 
-export default function FormPopup() {
-  const [open, setOpen] = useState(false);
+type FormPopupProps = {
+  open?: boolean;
+  onClose?: () => void;
+  title?: string;
+};
+
+export default function FormPopup({ open, onClose, title }: FormPopupProps) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = typeof open === "boolean";
+  const isOpen = isControlled ? open : internalOpen;
+
+  const close = useCallback(() => {
+    if (isControlled) onClose?.();
+    else setInternalOpen(false);
+  }, [isControlled, onClose]);
 
   useEffect(() => {
-    const handleOpen = () => setOpen(true);
+    if (isControlled) return;
+    const handleOpen = () => setInternalOpen(true);
     window.addEventListener("open-form-popup", handleOpen);
     return () => window.removeEventListener("open-form-popup", handleOpen);
-  }, []);
+  }, [isControlled]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!isOpen) return;
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") close();
     };
     document.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
@@ -24,25 +38,25 @@ export default function FormPopup() {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [isOpen, close]);
 
-  if (!open) return null;
+  if (!isOpen) return null;
 
   return (
     <div
       className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 p-4"
-      onClick={() => setOpen(false)}
+      onClick={close}
       role="dialog"
       aria-modal="true"
       aria-label="Apply Now"
     >
       <div
-        className="relative my-8 w-full max-w-md"
+        className="relative my-8 w-full max-w-lg"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
-          onClick={() => setOpen(false)}
+          onClick={close}
           aria-label="Close application form"
           className="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-500 shadow hover:text-[#C52F33]"
         >
@@ -61,7 +75,7 @@ export default function FormPopup() {
             />
           </svg>
         </button>
-        <LeadForm />
+        <LeadForm title={title} />
       </div>
     </div>
   );

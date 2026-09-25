@@ -56,7 +56,7 @@ const initialForm = {
   location: "",
 };
 
-export default function LeadForm() {
+export default function LeadForm({ title }: { title?: string }) {
   const router = useRouter();
   const [form, setForm] = useState(initialForm);
   const [message, setMessage] = useState("");
@@ -149,6 +149,13 @@ export default function LeadForm() {
     }
   );
 
+  try {
+    sessionStorage.setItem("lead_submitted", "1");
+  } catch {
+    /* ignore storage errors */
+  }
+  window.dispatchEvent(new CustomEvent("lead-submitted"));
+
   router.push("/thank-you");
   return;
 }
@@ -166,8 +173,8 @@ export default function LeadForm() {
 
   return (
     <div className="bg-white text-gray-800 rounded-3xl shadow-lg px-6 py-4 max-sm:px-5 max-sm:py-6 animate-soft-blink">
-      <h2 className="text-center font-bold mb-2 text-[25px] text-[#3c087e]">
-        Download Brochure for Online MBA
+      <h2 className="text-center font-bold mb-2 text-[24px] sm:whitespace-nowrap text-[#3c087e]">
+        {title || "Download Brochure for Online MBA"}
       </h2>
       <p className="text-center text-sm text-[#4A5565] mb-3">
         Get information about programs and admissions
