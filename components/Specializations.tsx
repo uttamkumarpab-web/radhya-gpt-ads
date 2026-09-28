@@ -34,10 +34,10 @@ export default function Specializations() {
         <div className="mt-10 flex justify-center">
           <OpenFormButton
             id="cta-specializations-apply-now"
-            label="Apply now"
+            label="Get Free MBA Guidance"
             className="rounded-xl bg-[#3C087E] px-7 py-3 text-sm font-bold text-[#FFFFFF] shadow-[0_10px_24px_#3C087E33] transition-all duration-300 hover:scale-[1.03] hover:bg-[#EEA727] md:px-9 md:py-3.5 md:text-base"
           >
-            Apply now
+            Get Free MBA Guidance
           </OpenFormButton>
         </div>
 

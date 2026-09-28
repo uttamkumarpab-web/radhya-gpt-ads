@@ -5,7 +5,7 @@ const badges = [
     { img: "/images/ugc.webp", text: "UGC Entitled" },
     { img: "/images/aicte.webp", text: "AICTE Approved" },
     { img: "/images/naac.webp", text: "NAAC A++ Accredited" },
-    { img: "/images/wes.webp", text: "WES Recognized" },
+    { img: "/images/nirf.webp", text: "NIRF Ranked" },
   ];
 
 export default function HeroSection() {
@@ -58,7 +58,7 @@ export default function HeroSection() {
                   ✓
                 </span>
                 <span>
-                  UGC-DEB Approved Universities
+                  UGC-DEB Entitled Programmes
                 </span>
               </li>
 

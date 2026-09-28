@@ -17,10 +17,10 @@ export default function Header() {
         </div>
         <OpenFormButton
           id="cta-header-apply-now"
-          label="Apply Now"
+          label="Header Apply Now"
           className="rounded hover:bg-[#3c087e] px-4 py-2 text-sm font-semibold text-white shadow transition-colors duration-300 bg-[#eea727]"
         >
-          Apply Now
+          Get Free MBA Guidance
         </OpenFormButton>
       </div>
     </header>

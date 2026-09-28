@@ -16,7 +16,7 @@ export default function TopUniversities() {
       specializations: "12 specializations",
       accreditation: "NAAC A+ • UGC • DEB • AICTE",
       duration: "2 Years",
-      fees: "₹ 2,50,000",
+      fees: "₹ 1,99,000",
     },
     {
       name: "Manipal Jaipur Online",
@@ -121,8 +121,12 @@ export default function TopUniversities() {
           ))}
         </div>
 
+         <p className="mx-auto mt-10 max-w-4xl italic text-xs leading-relaxed text-[#52647B] md:text-base">
+            Fees, scholarships and admission dates may vary by university and intake. Verify current details before applying.
+          </p>
+
         {/* Bottom CTA */}
-        <div className="mt-10 flex justify-center">
+        <div className="mt-4 flex justify-center">
           <OpenFormButton
             id="cta-compare-all-universities"
             label="Compare All Online MBA Universities"

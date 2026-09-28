@@ -8,12 +8,10 @@ import { validateEmail, validateMobile, validateName } from "@/lib/validation";
 import { getTrackingContext } from "@/lib/track";
 
 const EDUCATION_LEVELS = [
-  "10th Pass",
-  "12th Pass",
-  "Diploma",
   "Graduate (Completed)",
   "Undergraduate (Pursuing)",
   "Postgraduate (Completed)",
+  "Others"
 ];
 
 const UTM_KEYS = [
@@ -248,7 +246,7 @@ export default function LeadForm({ title }: { title?: string }) {
         <div className="grid grid-cols-2 gap-2 max-sm:grid-cols-1">
           <div>
             <label htmlFor="education-level" className={labelClass}>
-              Education Level
+              Highest Qualification
             </label>
             <select
               id="education-level"
@@ -256,7 +254,7 @@ export default function LeadForm({ title }: { title?: string }) {
               value={form.educationLevel}
               onChange={updateField("educationLevel")}
             >
-              <option value="">Select Education Level</option>
+              <option value="">Select Highest Qualification</option>
               {EDUCATION_LEVELS.map((level) => (
                 <option key={level} value={level}>
                   {level}
